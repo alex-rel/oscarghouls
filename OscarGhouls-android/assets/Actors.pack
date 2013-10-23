@@ -1,0 +1,26 @@
+
+Actors.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+oscar
+  rotate: false
+  xy: 1, 131
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+fantasma1
+  rotate: false
+  xy: 1, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+fantasma2
+  rotate: false
+  xy: 259, 259
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1

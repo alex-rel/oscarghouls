@@ -90,9 +90,11 @@ public class GameScreen implements Screen, InputProcessor{
 		// TODO Auto-generated method stub
 		System.out.println(screenX + "," + screenY);
 		if(screenX < Gdx.graphics.getWidth()/2){
+			stage.getOscar().setFacingLeft(true);
 			stage.getOscar().retroceder();
 		}
 		else{
+			stage.getOscar().setFacingLeft(false);
 			stage.getOscar().avanzar();
 		}
 		return true;

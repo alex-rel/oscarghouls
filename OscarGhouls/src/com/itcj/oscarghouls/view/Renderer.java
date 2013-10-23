@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.itcj.oscarghouls.OscarGhouls;
 import com.itcj.oscarghouls.model.Ghost;
@@ -15,10 +17,13 @@ public class Renderer {
 	public static final long GHOST_FRECUENCY = 1000000000;		//Frecuencia en nanosegundos con la cual estaran apareciendo los fantasmas(1 seg)
 	
 	Stage stage;
-	Texture oscarTexture;
-	Texture fondoTexture;
-	Texture fantasma1;
-	Texture fantasma2;
+	TextureAtlas screens = new TextureAtlas(Gdx.files.internal("screens.pack"));
+	TextureAtlas actors = new TextureAtlas(Gdx.files.internal("actors.pack"));;
+	TextureRegion oscarTexture = new TextureRegion();
+	TextureRegion oscarLeft;
+	TextureRegion fondoTexture = new TextureRegion();
+	TextureRegion fantasma1 = new TextureRegion();
+	TextureRegion fantasma2 = new TextureRegion();
 	SpriteBatch batch;
 	OrthographicCamera cam;
 	
@@ -45,8 +50,16 @@ public class Renderer {
 			lastGhost = TimeUtils.nanoTime();
 		}
 		batch.begin();
+		//Dibujar el Fondo
 		batch.draw(fondoTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		batch.draw(oscarTexture, oscar.getPosition().x * ppuX , oscar.getPosition().y * ppuY , oscar.getWidth() * ppuX, oscar.getHeight() * ppuY);
+		//Dibujar a Oscar
+		if(oscar.isFacingLeft()){
+			batch.draw(oscarLeft, oscar.getPosition().x * ppuX , oscar.getPosition().y * ppuY , oscar.getWidth() * ppuX, oscar.getHeight() * ppuY);
+		}
+		else{
+			batch.draw(oscarTexture, oscar.getPosition().x * ppuX , oscar.getPosition().y * ppuY , oscar.getWidth() * ppuX, oscar.getHeight() * ppuY);
+		}
+		//Dibujar Fantasmas
 		for(Ghost ghost : stage.getFantasmas()){
 			switch(ghost.getType()){
 				case 1:
@@ -75,9 +88,11 @@ public class Renderer {
 	}
 	
 	private void loadTextures(){
-		oscarTexture = new Texture(Gdx.files.internal("oscar.png"));
-		fondoTexture = new Texture(Gdx.files.internal("stage.png"));
-		fantasma1 = new Texture(Gdx.files.internal("fantasma2.png"));
-		fantasma2 = new Texture(Gdx.files.internal("fantasma2.png"));
+		oscarTexture = actors.findRegion("oscar");
+		oscarLeft = new TextureRegion(oscarTexture);
+		oscarLeft.flip(true, false);
+		fondoTexture = screens.findRegion("stage");
+		fantasma1 = actors.findRegion("fantasma1");
+		fantasma2 = actors.findRegion("fantasma2");
 	}
 }

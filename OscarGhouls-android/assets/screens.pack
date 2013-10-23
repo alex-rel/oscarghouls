@@ -1,0 +1,19 @@
+
+screens.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+presentation
+  rotate: false
+  xy: 1, 259
+  size: 512, 256
+  orig: 512, 256
+  offset: 0, 0
+  index: -1
+stage
+  rotate: false
+  xy: 1, 1
+  size: 512, 256
+  orig: 512, 256
+  offset: 0, 0
+  index: -1

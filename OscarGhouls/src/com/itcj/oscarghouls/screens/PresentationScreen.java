@@ -37,7 +37,7 @@ public class PresentationScreen implements Screen, InputProcessor{
 
 	@Override
 	public void show() {
-		texturaFondo = new Texture(Gdx.files.internal("presentation.png"));
+		texturaFondo = new Texture(Gdx.files.internal("screens/presentation.png"));
 		batch = new SpriteBatch();
 		Gdx.input.setInputProcessor(this);
 	}

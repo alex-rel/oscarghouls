@@ -5,8 +5,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.itcj.oscarghouls.OscarGhouls;
 
 public class Oscar {
+	
+	public enum States{
+		IDLE, MOVING;
+	}
+	
 	private float height;
 	private float width;
+	
+	private boolean facingLeft;
 	
 	private float speed = 1f;
 	
@@ -23,6 +30,7 @@ public class Oscar {
 		bounds.height = height;
 		bounds.x = position.x;
 		bounds.y = position.y;
+		facingLeft = false;
 	}
 	
 	
@@ -53,6 +61,14 @@ public class Oscar {
 	
 	public void avanzar(){
 		velocity.x = speed;
+	}
+	
+	public boolean isFacingLeft(){
+		return facingLeft;
+	}
+	
+	public void setFacingLeft(boolean facingLeft){
+		this.facingLeft = facingLeft;
 	}
 	
 	public void retroceder(){
