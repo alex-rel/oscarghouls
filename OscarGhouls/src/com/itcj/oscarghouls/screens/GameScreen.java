@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 
 import com.itcj.oscarghouls.OscarGhouls;
+import com.itcj.oscarghouls.model.Oscar;
 import com.itcj.oscarghouls.model.Stage;
 import com.itcj.oscarghouls.view.Renderer;
 
@@ -89,6 +90,7 @@ public class GameScreen implements Screen, InputProcessor{
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		// TODO Auto-generated method stub
 		System.out.println(screenX + "," + screenY);
+		stage.getOscar().setState(Oscar.States.WALKING);
 		if(screenX < Gdx.graphics.getWidth()/2){
 			stage.getOscar().setFacingLeft(true);
 			stage.getOscar().retroceder();
@@ -103,6 +105,7 @@ public class GameScreen implements Screen, InputProcessor{
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		// TODO Auto-generated method stub
+		stage.getOscar().setState(Oscar.States.IDLE);
 		stage.getOscar().stop();
 		return true;
 	}

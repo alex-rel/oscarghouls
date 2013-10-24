@@ -12,6 +12,8 @@ public class Ghost {
 	private float speed = 1f;
 	private int type;
 	
+	private float stateTime = 0f;
+	
 	
 	Vector2 position;
 	Vector2 velocity = new Vector2();
@@ -71,7 +73,18 @@ public class Ghost {
 	}
 
 	public void update(float delta){
+		setStateTime(getStateTime() + delta);
 		position.add(velocity.cpy().scl(delta));
+	}
+
+
+	public float getStateTime() {
+		return stateTime;
+	}
+
+
+	public void setStateTime(float stateTime) {
+		this.stateTime = stateTime;
 	}
 
 

@@ -7,7 +7,7 @@ import com.itcj.oscarghouls.OscarGhouls;
 public class Oscar {
 	
 	public enum States{
-		IDLE, MOVING;
+		IDLE, WALKING;
 	}
 	
 	private float height;
@@ -16,7 +16,9 @@ public class Oscar {
 	private boolean facingLeft;
 	
 	private float speed = 1f;
+	float stateTime = 0;
 	
+	private States state;
 	
 	Vector2 position;
 	Vector2 velocity = new Vector2();
@@ -24,13 +26,14 @@ public class Oscar {
 	
 	public Oscar(Vector2 position){
 		this.position = position;
-		this.height = 2f;
-		this.width = 2f;
+		this.height = 1.8f;
+		this.width = 1.5f;
 		bounds.width = width;
 		bounds.height = height;
 		bounds.x = position.x;
 		bounds.y = position.y;
 		facingLeft = false;
+		state = States.IDLE;
 	}
 	
 	
@@ -71,6 +74,23 @@ public class Oscar {
 		this.facingLeft = facingLeft;
 	}
 	
+	public States getState() {
+		return state;
+	}
+
+	public void setState(States state) {
+		this.state = state;
+	}
+	
+	public float getStateTime() {
+		return stateTime;
+	}
+
+
+	public void setStateTime(float stateTime) {
+		this.stateTime = stateTime;
+	}
+	
 	public void retroceder(){
 		velocity.x = -speed;
 	}
@@ -80,11 +100,11 @@ public class Oscar {
 	}
 	
 	public void update(float delta){
+		stateTime += delta;
 		position.add(velocity.cpy().scl(delta));
 		if(position.x < 0){
 			position.x = 0;
 		}
-		
 		if(position.x > (OscarGhouls.CAMERA_WIDTH - width)){
 			position.x = OscarGhouls.CAMERA_WIDTH - width;
 		}

@@ -1,27 +1,13 @@
 
-actors.png
+Actores.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-oscar1
-  rotate: false
-  xy: 1, 303
-  size: 92, 170
-  orig: 92, 170
-  offset: 0, 0
-  index: -1
-oscar2
+oscar
   rotate: false
   xy: 1, 131
-  size: 92, 170
-  orig: 92, 170
-  offset: 0, 0
-  index: -1
-oscar3
-  rotate: false
-  xy: 95, 303
-  size: 92, 170
-  orig: 92, 170
+  size: 256, 256
+  orig: 256, 256
   offset: 0, 0
   index: -1
 fantasma1
@@ -33,7 +19,7 @@ fantasma1
   index: -1
 fantasma2
   rotate: false
-  xy: 95, 173
+  xy: 259, 259
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
