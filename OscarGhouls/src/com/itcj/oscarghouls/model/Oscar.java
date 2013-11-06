@@ -7,7 +7,7 @@ import com.itcj.oscarghouls.OscarGhouls;
 public class Oscar {
 	
 	public enum States{
-		IDLE, WALKING;
+		IDLE, WALKING, CATCHING, HURT;
 	}
 	
 	private float height;
@@ -19,6 +19,8 @@ public class Oscar {
 	float stateTime = 0;
 	
 	private States state;
+	
+	private int stamina;
 	
 	Vector2 position;
 	Vector2 velocity = new Vector2();
@@ -34,6 +36,7 @@ public class Oscar {
 		bounds.y = position.y;
 		facingLeft = false;
 		state = States.IDLE;
+		stamina = 5;
 	}
 	
 	
@@ -102,12 +105,28 @@ public class Oscar {
 	public void update(float delta){
 		stateTime += delta;
 		position.add(velocity.cpy().scl(delta));
-		if(position.x < 0){
-			position.x = 0;
+		if(position.x - OscarArm.WIDTH < 0 && isFacingLeft()){
+			position.x = OscarArm.WIDTH - .3f;
 		}
-		if(position.x > (OscarGhouls.CAMERA_WIDTH - width)){
+		if(position.x - .3f < 0 && !isFacingLeft()){
+			position.x = 0f;
+		}
+		if(position.x + OscarArm.WIDTH  > (OscarGhouls.CAMERA_WIDTH - width) && !isFacingLeft()){
+			position.x = OscarGhouls.CAMERA_WIDTH - width - OscarArm.WIDTH + .3f;
+		}
+		if(position.x + .3f  > (OscarGhouls.CAMERA_WIDTH - width) && isFacingLeft()){
 			position.x = OscarGhouls.CAMERA_WIDTH - width;
 		}
+	}
+
+
+	public int getStamina() {
+		return stamina;
+	}
+
+
+	public void setStamina(int stamina) {
+		this.stamina = stamina;
 	}
 	
 

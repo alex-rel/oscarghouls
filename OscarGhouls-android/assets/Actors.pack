@@ -3,38 +3,157 @@ actors.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-oscar1
+gun
   rotate: false
-  xy: 1, 303
-  size: 92, 170
-  orig: 92, 170
+  xy: 1, 240
+  size: 162, 255
+  orig: 162, 255
   offset: 0, 0
   index: -1
-oscar2
+net1
   rotate: false
-  xy: 1, 131
-  size: 92, 170
-  orig: 92, 170
+  xy: 165, 240
+  size: 162, 255
+  orig: 162, 255
   offset: 0, 0
   index: -1
-oscar3
+net2
   rotate: false
-  xy: 95, 303
-  size: 92, 170
-  orig: 92, 170
+  xy: 329, 240
+  size: 162, 255
+  orig: 162, 255
+  offset: 0, 0
+  index: -1
+net3
+  rotate: false
+  xy: 493, 240
+  size: 162, 255
+  orig: 162, 255
+  offset: 0, 0
+  index: -1
+hurted
+  rotate: false
+  xy: 1, 67
+  size: 101, 171
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+arrow
+  rotate: false
+  xy: 657, 367
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 fantasma1
   rotate: false
-  xy: 1, 1
+  xy: 104, 110
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 fantasma2
   rotate: false
-  xy: 95, 173
+  xy: 787, 367
   size: 128, 128
   orig: 128, 128
+  offset: 0, 0
+  index: -1
+ghostbutton
+  rotate: false
+  xy: 234, 110
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+stamina0
+  rotate: false
+  xy: 657, 346
+  size: 228, 19
+  orig: 228, 19
+  offset: 0, 0
+  index: -1
+stamina1
+  rotate: false
+  xy: 104, 89
+  size: 228, 19
+  orig: 228, 19
+  offset: 0, 0
+  index: -1
+stamina2
+  rotate: false
+  xy: 364, 219
+  size: 228, 19
+  orig: 228, 19
+  offset: 0, 0
+  index: -1
+stamina3
+  rotate: false
+  xy: 657, 325
+  size: 228, 19
+  orig: 228, 19
+  offset: 0, 0
+  index: -1
+stamina4
+  rotate: false
+  xy: 104, 68
+  size: 228, 19
+  orig: 228, 19
+  offset: 0, 0
+  index: -1
+stamina5
+  rotate: false
+  xy: 364, 198
+  size: 228, 19
+  orig: 228, 19
+  offset: 0, 0
+  index: -1
+oscar1
+  rotate: false
+  xy: 917, 325
+  size: 72, 170
+  orig: 72, 170
+  offset: 0, 0
+  index: -1
+help
+  rotate: false
+  xy: 657, 253
+  size: 120, 70
+  orig: 120, 70
+  offset: 0, 0
+  index: -1
+options
+  rotate: false
+  xy: 364, 126
+  size: 120, 70
+  orig: 120, 70
+  offset: 0, 0
+  index: -1
+play
+  rotate: false
+  xy: 779, 253
+  size: 120, 70
+  orig: 120, 70
+  offset: 0, 0
+  index: -1
+oscar2
+  rotate: false
+  xy: 486, 26
+  size: 72, 170
+  orig: 72, 170
+  offset: 0, 0
+  index: -1
+oscar3
+  rotate: false
+  xy: 560, 26
+  size: 72, 170
+  orig: 72, 170
+  offset: 0, 0
+  index: -1
+web
+  rotate: false
+  xy: 1, 1
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1

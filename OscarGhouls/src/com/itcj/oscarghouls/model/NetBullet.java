@@ -3,57 +3,41 @@ package com.itcj.oscarghouls.model;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Ghost {
+public class NetBullet {
 	
 	
 	private float height;
 	private float width;
 	
 	private float speed = 1f;
-	private int type;
-	private int puntos;
 	
 	private float stateTime = 0f;
+	
+	private boolean facingLeft;
 	
 	
 	Vector2 position;
 	Vector2 velocity = new Vector2();
 	Rectangle bounds = new Rectangle();
 	
-	public Ghost(Vector2 position, int type){
+	public NetBullet(Vector2 position, boolean facingLeft){
 		this.position = position;
-		this.height = 1f;
-		this.width = 1f;
+		this.height = .7f;
+		this.width = .7f;
 		bounds.width = width;
 		bounds.height = height;
 		bounds.x = position.x;
 		bounds.y = position.y;
-		this.setType(type);
-		switch(type){
-			case 1:
-				velocity.x = speed;
-				puntos=100;
-				break;
-			case 2:
-				velocity.x = -speed;
-				puntos=200;
-				break;
-			default:
-				break;
+		this.facingLeft = facingLeft;
+		if(facingLeft){
+			velocity.x = -speed;
+		}
+		else{
+			velocity.x = speed;
 		}
 	}
 	
 	
-	public int getPuntos() {
-		return puntos;
-	}
-
-
-	public void setPuntos(int puntos) {
-		this.puntos = puntos;
-	}
-
-
 	public Vector2 getPosition() {
 		return position;
 	}
@@ -87,15 +71,8 @@ public class Ghost {
 	public void setWidth(float width) {
 		this.width = width;
 	}
-	public int getType() {
-		return type;
-	}
-	public void setType(int type) {
-		this.type = type;
-	}
-
+	
 	public void update(float delta){
-		setStateTime(getStateTime() + delta);
 		position.add(velocity.cpy().scl(delta));
 	}
 
@@ -107,6 +84,16 @@ public class Ghost {
 
 	public void setStateTime(float stateTime) {
 		this.stateTime = stateTime;
+	}
+
+
+	public boolean isFacingLeft() {
+		return facingLeft;
+	}
+
+
+	public void setFacingLeft(boolean facingLeft) {
+		this.facingLeft = facingLeft;
 	}
 
 

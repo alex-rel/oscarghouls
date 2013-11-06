@@ -2,58 +2,41 @@ package com.itcj.oscarghouls.model;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.itcj.oscarghouls.OscarGhouls;
 
-public class Ghost {
+public class OscarArm {
 	
+	public static final float WIDTH = 2.5f;
+	public static final float HEIGHT = 2.7f;
+	
+	public enum States{
+		IDLE, WALKING, CATCHING, SHOOTING;
+	}
 	
 	private float height;
 	private float width;
 	
 	private float speed = 1f;
-	private int type;
-	private int puntos;
+	float stateTime = 0;
 	
-	private float stateTime = 0f;
-	
+	private States state;
 	
 	Vector2 position;
 	Vector2 velocity = new Vector2();
 	Rectangle bounds = new Rectangle();
 	
-	public Ghost(Vector2 position, int type){
+	public OscarArm(Vector2 position){
 		this.position = position;
-		this.height = 1f;
-		this.width = 1f;
+		this.height = HEIGHT;
+		this.width = WIDTH;
 		bounds.width = width;
 		bounds.height = height;
 		bounds.x = position.x;
 		bounds.y = position.y;
-		this.setType(type);
-		switch(type){
-			case 1:
-				velocity.x = speed;
-				puntos=100;
-				break;
-			case 2:
-				velocity.x = -speed;
-				puntos=200;
-				break;
-			default:
-				break;
-		}
+		state = States.IDLE;
 	}
 	
 	
-	public int getPuntos() {
-		return puntos;
-	}
-
-
-	public void setPuntos(int puntos) {
-		this.puntos = puntos;
-	}
-
-
 	public Vector2 getPosition() {
 		return position;
 	}
@@ -61,12 +44,8 @@ public class Ghost {
 		this.position = position;
 	}
 	
-	public void setPositionX(float x) {
+	public void setPositionX(float x){
 		this.position.x = x;
-	}
-	
-	public void stop(){
-		this.velocity.x = 0f;
 	}
 	
 	public Rectangle getBounds() {
@@ -87,19 +66,19 @@ public class Ghost {
 	public void setWidth(float width) {
 		this.width = width;
 	}
-	public int getType() {
-		return type;
+	
+	public void avanzar(){
+		velocity.x = speed;
 	}
-	public void setType(int type) {
-		this.type = type;
-	}
-
-	public void update(float delta){
-		setStateTime(getStateTime() + delta);
-		position.add(velocity.cpy().scl(delta));
+	
+	public States getState() {
+		return state;
 	}
 
-
+	public void setState(States state) {
+		this.state = state;
+	}
+	
 	public float getStateTime() {
 		return stateTime;
 	}
@@ -108,7 +87,26 @@ public class Ghost {
 	public void setStateTime(float stateTime) {
 		this.stateTime = stateTime;
 	}
+	
+	public void retroceder(){
+		velocity.x = -speed;
+	}
+	
+	public void stop(){
+		velocity.x = 0;
+	}
+	
+	public void update(float delta){
+		stateTime += delta;
+		position.add(velocity.cpy().scl(delta));
+		if(position.x < 0.38f){
+			position.x = 0;
+		}
+		if(position.x > (OscarGhouls.CAMERA_WIDTH - width) - .38f){
+			position.x = OscarGhouls.CAMERA_WIDTH - width;
+		}
+	}
+	
 
-
-
+	
 }

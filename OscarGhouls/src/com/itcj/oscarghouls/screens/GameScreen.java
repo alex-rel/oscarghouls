@@ -3,10 +3,14 @@ package com.itcj.oscarghouls.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.math.Vector2;
 
 import com.itcj.oscarghouls.OscarGhouls;
 import com.itcj.oscarghouls.model.Oscar;
+import com.itcj.oscarghouls.model.OscarArm;
 import com.itcj.oscarghouls.model.Stage;
 import com.itcj.oscarghouls.view.Renderer;
 
@@ -15,6 +19,10 @@ public class GameScreen implements Screen, InputProcessor{
 	OscarGhouls mainGame;	//Referencia al mismo juego
 	Stage stage;
 	Renderer stageRenderer;
+	int width;
+	int height;
+	
+
 
 	//Constructor de GameScreen para hacer referencia al mismo juego y poder movernos entre
 	//pantallas
@@ -27,6 +35,10 @@ public class GameScreen implements Screen, InputProcessor{
 		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		if (stageRenderer.isGameOver()){
+			OscarGhouls.bgSound.stop();
+			mainGame.setScreen(mainGame.gameOverScreen);
+		}
 		stageRenderer.render(delta);
 	}
 
@@ -34,6 +46,8 @@ public class GameScreen implements Screen, InputProcessor{
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
 		stageRenderer.resize(width, height);
+		this.width = width;
+		this.height = height;
 	}
 
 	@Override
@@ -42,6 +56,8 @@ public class GameScreen implements Screen, InputProcessor{
 		stage = new Stage();
 		stageRenderer = new Renderer(stage);
 		Gdx.input.setInputProcessor(this);
+		OscarGhouls.bgSound.setLooping(true);
+		OscarGhouls.bgSound.play();
 	}
 
 	@Override
@@ -88,17 +104,52 @@ public class GameScreen implements Screen, InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		System.out.println(screenX + "," + screenY);
-		stage.getOscar().setState(Oscar.States.WALKING);
-		if(screenX < Gdx.graphics.getWidth()/2){
+	
+		//Boton Izquierdo Presionado
+		if(stage.getButtonLeft().touched(screenX, screenY, width, height)){
+			stage.getOscar().setState(Oscar.States.WALKING);
+			stage.getOscar().setFacingLeft(true);
+			stage.getArm().setPositionX(stage.getOscar().getPosition().x - stage.getArm().getWidth() + .3f);
+			stage.getOscar().retroceder();
+			stage.getArm().retroceder();
+		}
+		//Boton Derecho Presionado
+		if(stage.getButtonRight().touched(screenX, screenY, width, height)){
+			stage.getOscar().setState(Oscar.States.WALKING);	
+			stage.getOscar().setFacingLeft(false);
+			stage.getArm().setPositionX(stage.getOscar().getPosition().x + stage.getOscar().getWidth() - .3f);
+			stage.getOscar().avanzar();
+			stage.getArm().avanzar();
+		}
+		
+		//Botones de Accion Presionados
+		
+		if(stage.getAction1().touched(screenX, screenY, width, height)){
+			stage.getArm().setState(OscarArm.States.SHOOTING);
+			float posX = stage.getArm().getPosition().x;
+			float posY = 1.4f;
+			if(stage.getOscar().isFacingLeft()){
+				stage.netShot(new Vector2(posX + stage.getArm().getWidth()  - 1.5f, posY), true);
+			}
+			else{
+				stage.netShot(new Vector2(posX + .8f, posY), false);
+			}
+			
+		}
+		
+		if(stage.getAction2().touched(screenX, screenY, width, height)){
+			stage.getArm().setState(OscarArm.States.CATCHING);
+			OscarGhouls.swing.play();
+		}
+		
+		/*if(screenX < Gdx.graphics.getWidth()/2){
 			stage.getOscar().setFacingLeft(true);
 			stage.getOscar().retroceder();
 		}
 		else{
 			stage.getOscar().setFacingLeft(false);
 			stage.getOscar().avanzar();
-		}
+		}*/
 		return true;
 	}
 
@@ -106,7 +157,9 @@ public class GameScreen implements Screen, InputProcessor{
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		// TODO Auto-generated method stub
 		stage.getOscar().setState(Oscar.States.IDLE);
+		stage.getArm().setState(OscarArm.States.IDLE);
 		stage.getOscar().stop();
+		stage.getArm().stop();
 		return true;
 	}
 
