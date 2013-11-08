@@ -15,7 +15,7 @@ public class Oscar {
 	
 	private boolean facingLeft;
 	
-	private float speed = 1f;
+	private float speed = 2f;
 	float stateTime = 0;
 	
 	private States state;

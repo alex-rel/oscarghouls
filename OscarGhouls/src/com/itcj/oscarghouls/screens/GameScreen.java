@@ -3,6 +3,7 @@ package com.itcj.oscarghouls.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL10;
@@ -87,13 +88,31 @@ public class GameScreen implements Screen, InputProcessor{
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
-		return false;
+		if(keycode == Keys.LEFT){
+			stage.getOscar().setState(Oscar.States.WALKING);
+			stage.getOscar().setFacingLeft(true);
+			stage.getArm().setPositionX(stage.getOscar().getPosition().x - stage.getArm().getWidth() + .3f);
+			stage.getOscar().retroceder();
+			stage.getArm().retroceder();
+		}
+		if(keycode == Keys.RIGHT){
+			stage.getOscar().setState(Oscar.States.WALKING);	
+			stage.getOscar().setFacingLeft(false);
+			stage.getArm().setPositionX(stage.getOscar().getPosition().x + stage.getOscar().getWidth() - .3f);
+			stage.getOscar().avanzar();
+			stage.getArm().avanzar();
+		}
+		
+		return true;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
+		stage.getOscar().setState(Oscar.States.IDLE);
+		stage.getArm().setState(OscarArm.States.IDLE);
+		stage.getOscar().stop();
+		stage.getArm().stop();
+		return true;
 	}
 
 	@Override
@@ -125,6 +144,11 @@ public class GameScreen implements Screen, InputProcessor{
 		//Botones de Accion Presionados
 		
 		if(stage.getAction1().touched(screenX, screenY, width, height)){
+			stage.getArm().setState(OscarArm.States.CATCHING);
+			OscarGhouls.swing.play();
+		}
+		
+		if(stage.getAction2().touched(screenX, screenY, width, height)){
 			stage.getArm().setState(OscarArm.States.SHOOTING);
 			float posX = stage.getArm().getPosition().x;
 			float posY = 1.4f;
@@ -134,22 +158,7 @@ public class GameScreen implements Screen, InputProcessor{
 			else{
 				stage.netShot(new Vector2(posX + .8f, posY), false);
 			}
-			
 		}
-		
-		if(stage.getAction2().touched(screenX, screenY, width, height)){
-			stage.getArm().setState(OscarArm.States.CATCHING);
-			OscarGhouls.swing.play();
-		}
-		
-		/*if(screenX < Gdx.graphics.getWidth()/2){
-			stage.getOscar().setFacingLeft(true);
-			stage.getOscar().retroceder();
-		}
-		else{
-			stage.getOscar().setFacingLeft(false);
-			stage.getOscar().avanzar();
-		}*/
 		return true;
 	}
 

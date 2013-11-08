@@ -16,7 +16,7 @@ public class OscarArm {
 	private float height;
 	private float width;
 	
-	private float speed = 1f;
+	private float speed = 2f;
 	float stateTime = 0;
 	
 	private States state;

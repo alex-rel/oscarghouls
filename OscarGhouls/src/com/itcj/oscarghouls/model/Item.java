@@ -3,49 +3,58 @@ package com.itcj.oscarghouls.model;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Ghost {
+public class Item {
 	
+	public enum Type{
+		LIFEKIT, AMMO, SCOUT;
+	}
 	
 	private float height;
 	private float width;
 	
 	private float speed = 1f;
-	private int type;
+	private Type type;
 	private int puntos;
 	
+	private int duration;
+	
 	private float stateTime = 0f;
-	private boolean withItem;			//Para saber si tiene un item o no
-	private Item.Type itemType;		
 	
 	
 	Vector2 position;
 	Vector2 velocity = new Vector2();
 	Rectangle bounds = new Rectangle();
 	
-	public Ghost(Vector2 position, int type, boolean withItem){
+	public Item(Vector2 position, Type type){
 		this.position = position;
-		this.height = 1f;
-		this.width = 1f;
-		bounds.width = width;
-		bounds.height = height;
-		bounds.x = position.x;
-		bounds.y = position.y;
 		this.setType(type);
-		//Manejo de los items dentro del fantasma
-		this.withItem = withItem;
-		
 		switch(type){
-			case 1:
-				velocity.x = speed;
-				puntos=100;
+			case LIFEKIT:
+				velocity.y = -speed;
+				puntos=0;
+				this.height = .5f;
+				this.width = .5f;
 				break;
-			case 2:
-				velocity.x = -speed;
-				puntos=200;
+			case AMMO:
+				velocity.y = -speed;
+				puntos=0;
+				this.height = 1f;
+				this.width = 1f;
+				break;
+			case SCOUT:
+				velocity.y = -speed;
+				puntos=500;
+				this.height = 1f;
+				this.width = 1.5f;
 				break;
 			default:
 				break;
 		}
+		bounds.width = width;
+		bounds.height = height;
+		bounds.x = position.x;
+		bounds.y = position.y;
+		duration = 3;
 	}
 	
 	
@@ -92,10 +101,10 @@ public class Ghost {
 	public void setWidth(float width) {
 		this.width = width;
 	}
-	public int getType() {
+	public Type getType() {
 		return type;
 	}
-	public void setType(int type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
 
@@ -115,23 +124,13 @@ public class Ghost {
 	}
 
 
-	public boolean isWithItem() {
-		return withItem;
+	public int getDuration() {
+		return duration;
 	}
 
 
-	public void setWithItem(boolean withItem) {
-		this.withItem = withItem;
-	}
-
-
-	public Item.Type getItemType() {
-		return itemType;
-	}
-
-
-	public void setItemType(Item.Type itemType) {
-		this.itemType = itemType;
+	public void setDuration(int duration) {
+		this.duration = duration;
 	}
 
 
