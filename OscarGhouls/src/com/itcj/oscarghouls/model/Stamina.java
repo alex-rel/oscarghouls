@@ -14,7 +14,7 @@ public class Stamina {
 	
 	public Stamina(Vector2 position){
 			this.position = position;
-			this.width = 4f;
+			this.width = 3.5f;
 			this.height= .5f;
 			this.bounds.width = width;
 			this.bounds.height = height;

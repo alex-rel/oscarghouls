@@ -22,6 +22,8 @@ public class Stage {
 		
 		Stamina stamina;
 		int ammo;
+		
+
 		int savedScouts;
 		
 		Array<Ghost> fantasmas = new Array<Ghost>();
@@ -122,10 +124,9 @@ public class Stage {
 		}
 		
 		public void netShot(Vector2 position, boolean facingLeft){
-			if(ammo > 1){
+			if(ammo > 0){
 				netBullets.add(new NetBullet(position, facingLeft));
 				ammo--;
-				System.out.println("Your ammo: " + ammo);
 			}
 			
 		}
@@ -164,6 +165,22 @@ public class Stage {
 
 		public Button getAction2() {
 			return action2;
+		}
+		
+		public int getAmmo() {
+			return ammo;
+		}
+
+		public void setAmmo(int ammo) {
+			this.ammo = ammo;
+		}
+
+		public int getSavedScouts() {
+			return savedScouts;
+		}
+
+		public void setSavedScouts(int savedScouts) {
+			this.savedScouts = savedScouts;
 		}
 		
 		//Movimiento de los personajes
@@ -301,12 +318,12 @@ public class Stage {
 							break;
 						case AMMO:
 							ammo += 3;
-							System.out.println("Your ammo:" + ammo);
+							OscarGhouls.reload.play();
 							break;
 						case SCOUT:
 							score += item.getPuntos();
 							savedScouts++;
-							System.out.println("Saved Scouts:" + savedScouts);
+							OscarGhouls.saved.play();
 							break;
 						default:
 							break;

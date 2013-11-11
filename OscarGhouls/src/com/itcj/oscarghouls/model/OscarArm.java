@@ -20,6 +20,7 @@ public class OscarArm {
 	float stateTime = 0;
 	
 	private States state;
+	private States previousState;
 	
 	Vector2 position;
 	Vector2 velocity = new Vector2();
@@ -34,6 +35,7 @@ public class OscarArm {
 		bounds.x = position.x;
 		bounds.y = position.y;
 		state = States.IDLE;
+		previousState = States.IDLE;
 	}
 	
 	
@@ -105,6 +107,16 @@ public class OscarArm {
 		if(position.x > (OscarGhouls.CAMERA_WIDTH - width) - .38f){
 			position.x = OscarGhouls.CAMERA_WIDTH - width;
 		}
+	}
+
+
+	public States getPreviousState() {
+		return previousState;
+	}
+
+
+	public void setPreviousState(States previousState) {
+		this.previousState = previousState;
 	}
 	
 

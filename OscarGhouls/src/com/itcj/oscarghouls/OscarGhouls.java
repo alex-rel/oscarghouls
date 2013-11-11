@@ -18,6 +18,8 @@ public class OscarGhouls extends Game {
 	public static Sound hurt;
 	public static Sound swing;
 	public static Sound catched;
+	public static Sound saved;
+	public static Sound reload;
 	
 	public GameScreen gameScreen = new GameScreen(this);
 	public PresentationScreen presentationScreen = new PresentationScreen(this);
@@ -26,10 +28,12 @@ public class OscarGhouls extends Game {
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
-	 bgSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/bgmusic.wav"));
-	hurt = Gdx.audio.newSound(Gdx.files.internal("sounds/hurt.wav"));
-	swing = Gdx.audio.newSound(Gdx.files.internal("sounds/swing.wav"));
-	catched = Gdx.audio.newSound(Gdx.files.internal("sounds/catched.wav"));
+		 bgSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/bgmusic.wav"));
+		hurt = Gdx.audio.newSound(Gdx.files.internal("sounds/hurt.wav"));
+		swing = Gdx.audio.newSound(Gdx.files.internal("sounds/swing.wav"));
+		catched = Gdx.audio.newSound(Gdx.files.internal("sounds/catched.wav"));
+		saved = Gdx.audio.newSound(Gdx.files.internal("sounds/saved.wav"));
+		reload= Gdx.audio.newSound(Gdx.files.internal("sounds/reload.wav"));
 		setScreen(presentationScreen);
 	}
 	

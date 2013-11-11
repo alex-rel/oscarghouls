@@ -1,5 +1,7 @@
 package com.itcj.oscarghouls.view;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -53,6 +55,7 @@ public class Renderer {
 	TextureRegion ammoKit = new TextureRegion();
 	TextureRegion scout = new TextureRegion();
 	TextureRegion itemFrame = new TextureRegion();
+	TextureRegion by = new TextureRegion();
 	
 	//Texturas de Stamina
 	TextureRegion[] texStamina = new TextureRegion[6];
@@ -119,6 +122,20 @@ public class Renderer {
 		drawItems();
 		//Dibujar Botones
 		drawButtons();
+		//Dibujar Score
+		if(stage.getScore() != 0){
+			drawNumber(stage.getScore(), 8,5,.5f,.5f);
+		}
+		
+		//Dibujar Info de scouts Rescatados
+		batch.draw(scout, 4f * ppuX , 5 * ppuY , .5f * ppuX, .5f * ppuY);
+		batch.draw(by, 4.6f * ppuX , 5 * ppuY , .3f * ppuX, .3f * ppuY);
+		drawNumber(stage.getSavedScouts(), 5, 5, .3f,.3f);
+		//Dibujar Info de Ammo
+		batch.draw(ammoKit, 5.5f * ppuX , 5 * ppuY , .5f * ppuX, .5f * ppuY);
+		batch.draw(by, 6f * ppuX , 5 * ppuY , .3f * ppuX, .3f * ppuY);
+		drawNumber(stage.getAmmo(), 6.3f, 5, .3f,.3f);
+		
 		batch.end();
 		//Actualizar el Delta(posicion en el tiempo
 		stage.moveOscar(delta);
@@ -157,6 +174,7 @@ public class Renderer {
 		lifeKit = actors.findRegion("lifekit");
 		ammoKit = actors.findRegion("balas");
 		scout = actors.findRegion("scout");
+		by = actors.findRegion("x");
 		
 		TextureRegion[] walkRightFrames = new TextureRegion[3];
 		for(int i=0;i<3;i++){
@@ -239,10 +257,21 @@ public class Renderer {
 	
 	private void drawOscarArm(){
 		if(oscar.isFacingLeft()){
-			oscarArmFrame = oscarArmLeft;
+			if(arm.getPreviousState().equals(OscarArm.States.SHOOTING)){
+				oscarArmFrame = gunLeftTexture;
+			}
+			else{
+				oscarArmFrame = oscarArmLeft;
+			}
 		}
 		else{
-			oscarArmFrame = oscarArmTexture;
+			if(arm.getPreviousState().equals(OscarArm.States.SHOOTING)){
+				oscarArmFrame = gunTexture;
+			}
+			else{
+				oscarArmFrame = oscarArmTexture;
+			}
+				
 		}
 		
 		//Dibujar Animacion de Oscar si esta Caminando
@@ -311,4 +340,39 @@ public class Renderer {
 	public void setGameOver(boolean isGameOver) {
 		this.isGameOver = isGameOver;
 	}
+	
+	protected void  drawNumber(long number, float posX, float posY, float w, float h) {
+		String stringPuntuacion = String.valueOf(number);	//Convierto en String la puntuacion total
+		TextureRegion texture;
+		ArrayList<TextureRegion> textures = new ArrayList<TextureRegion>();
+		
+		for(int x = 0; x < stringPuntuacion.length(); x++){
+			char numero = stringPuntuacion.charAt(x); //Paso por cada char del string de la puntacion
+			String sNumero = Character.toString(numero);//Lo convierto a string cada char individual
+			texture = actors.findRegion(sNumero);// Uso ese string para tomar su texture Region	
+			textures.add(x, texture);	// Los agrego en un array de texturesRegion
+		}		
+		for(TextureRegion textureRegion : textures){
+			batch.draw(textureRegion, posX * ppuX, posY * ppuY, w * ppuX, h * ppuY); //Imprimo cada Texture region del array
+			posX = posX + w;
+		}
+	}
+	
+	protected void  drawNumber(int number, float posX, float posY, float w, float h) {
+		String stringPuntuacion = String.valueOf(number);	//Convierto en String la puntuacion total
+		TextureRegion texture;
+		ArrayList<TextureRegion> textures = new ArrayList<TextureRegion>();
+		
+		for(int x = 0; x < stringPuntuacion.length(); x++){
+			char numero = stringPuntuacion.charAt(x); //Paso por cada char del string de la puntacion
+			String sNumero = Character.toString(numero);//Lo convierto a string cada char individual
+			texture = actors.findRegion(sNumero);// Uso ese string para tomar su texture Region	
+			textures.add(x, texture);	// Los agrego en un array de texturesRegion
+		}		
+		for(TextureRegion textureRegion : textures){
+			batch.draw(textureRegion, posX * ppuX, posY * ppuY, w * ppuX, h * ppuY); //Imprimo cada Texture region del array
+			posX = posX + w;
+		}
+	}
+	
 }

@@ -166,6 +166,7 @@ public class GameScreen implements Screen, InputProcessor{
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		// TODO Auto-generated method stub
 		stage.getOscar().setState(Oscar.States.IDLE);
+		stage.getArm().setPreviousState(stage.getArm().getState());
 		stage.getArm().setState(OscarArm.States.IDLE);
 		stage.getOscar().stop();
 		stage.getArm().stop();

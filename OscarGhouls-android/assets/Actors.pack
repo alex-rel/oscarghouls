@@ -185,3 +185,80 @@ web
   orig: 64, 64
   offset: 0, 0
   index: -1
+0
+  rotate: false
+  xy: 367, 21
+  size: 50, 68
+  orig: 50, 68
+  offset: 0, 0
+  index: -1
+1
+  rotate: false
+  xy: 419, 21
+  size: 50, 68
+  orig: 50, 68
+  offset: 0, 0
+  index: -1
+2
+  rotate: false
+  xy: 471, 11
+  size: 50, 68
+  orig: 50, 68
+  offset: 0, 0
+  index: -1
+3
+  rotate: false
+  xy: 523, 11
+  size: 50, 68
+  orig: 50, 68
+  offset: 0, 0
+  index: -1
+4
+  rotate: false
+  xy: 575, 11
+  size: 50, 68
+  orig: 50, 68
+  offset: 0, 0
+  index: -1
+5
+  rotate: false
+  xy: 919, 129
+  size: 50, 68
+  orig: 50, 68
+  offset: 0, 0
+  index: -1
+6
+  rotate: false
+  xy: 971, 129
+  size: 50, 68
+  orig: 50, 68
+  offset: 0, 0
+  index: -1
+7
+  rotate: false
+  xy: 603, 176
+  size: 50, 68
+  orig: 50, 68
+  offset: 0, 0
+  index: -1
+8
+  rotate: false
+  xy: 603, 106
+  size: 50, 68
+  orig: 50, 68
+  offset: 0, 0
+  index: -1
+9
+  rotate: false
+  xy: 655, 138
+  size: 50, 68
+  orig: 50, 68
+  offset: 0, 0
+  index: -1
+x
+  rotate: false
+  xy: 707, 138
+  size: 50, 68
+  orig: 50, 68
+  offset: 0, 0
+  index: -1
